@@ -4,13 +4,10 @@ namespace Chess.GameLogic.Pieces
 {
     class King : Piece
     {
-        public bool isChecked { get; set; }
         public King(Position position, ChessColor color, PieceType type) : base(position, color, type) { }
 
         public override void FindPotentialMoves(Board board)
         {
-            ClearValidMoves();
-            
             int newX;
             int newY = this.position.y;
 

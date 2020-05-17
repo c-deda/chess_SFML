@@ -8,8 +8,6 @@ namespace Chess.GameLogic.Pieces
 
         public override void FindPotentialMoves(Board board)
         {
-            ClearValidMoves();
-            
             // - - - Bishop Moveset - - - //
 
             int newX = this.position.x;

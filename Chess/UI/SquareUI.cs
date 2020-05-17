@@ -8,10 +8,10 @@ namespace Chess.UI
 {
     class SquareUI
     {
-        private static Color DarkColorIdle = new Color(100, 50, 0, 150);
-        private static Color LightColorIdle = new Color(255, 175, 100, 150);
-        private static Color DarkColorHighlight = new Color(225, 225, 0, 150);
-        private static Color LightColorHighlight = new Color(250, 250, 100, 150);
+        private static Color DarkColorIdle = new Color(100, 50, 0, 175);
+        private static Color LightColorIdle = new Color(255, 175, 100, 175);
+        private static Color DarkColorHighlight = new Color(225, 225, 0, 175);
+        private static Color LightColorHighlight = new Color(250, 250, 100, 175);
         private Sprite sprite;
         private RectangleShape shape;
         private Color idleColor;

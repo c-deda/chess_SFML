@@ -10,8 +10,7 @@ namespace Chess.GameLogic
 
         public Move(Piece moved, Position origin, Position destination)
         {
-            this.moved = PieceFactory.CreatePiece(moved.position, moved.color, moved.type);
-            this.moved.hasMoved = moved.hasMoved;
+            this.moved = PieceFactory.CopyPiece(moved);
             this.origin = origin;
             this.destination = destination;
         }
@@ -21,7 +20,7 @@ namespace Chess.GameLogic
         }
         public virtual void Undo(Board board)
         {
-            
+            board.NormalUndo(moved, destination);
         }
     }
 }

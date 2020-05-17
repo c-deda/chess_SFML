@@ -6,8 +6,6 @@
 
         public override void FindPotentialMoves(Board board)
         {
-            ClearValidMoves();
-            
             int newX = this.position.x;
             int newY = this.position.y;
 

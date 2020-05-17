@@ -8,8 +8,6 @@ namespace Chess.GameLogic.Pieces
 
         public override void FindPotentialMoves(Board board)
         {
-            ClearValidMoves();
-            
             // Down 2 and Left 1
             int newX = this.position.x - 1;
             int newY = this.position.y - 2;

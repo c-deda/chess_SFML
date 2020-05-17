@@ -6,10 +6,12 @@ using System;
 
 namespace Chess.ClientStates
 {
-    class TwoPlayerGameClientState : ClientState
+    class OnePlayerGameClientState : ClientState
     {
         private Game game;
         private BoardUI boardUI;
+        private ChessColor humanPlayer = ChessColor.White;
+        private ChessAI aiPlayer;
 
         public override void Init()
         {
@@ -25,7 +27,7 @@ namespace Chess.ClientStates
         {
             if (Mouse.IsButtonPressed(Mouse.Button.Left))
             {
-                if (!game.gameOver)
+                if (!game.gameOver && game.currentTurn == humanPlayer)
                 {
                     CheckForSquareClicked(buttonEventArgs);
                 }
@@ -33,7 +35,10 @@ namespace Chess.ClientStates
         }
         public override void Update(Vector2i mousePosition)
         {
-            
+            if (game.currentTurn != humanPlayer)
+            {
+
+            }
         }
         public override void Render()
         {
@@ -55,7 +60,7 @@ namespace Chess.ClientStates
                     if (boardUI.squaresUI[x,y].IsClicked(buttonEventArgs))
                      {
                         // Clicked Square Is Current Player's
-                        if (game.board.pieces[x,y] != null && game.board.pieces[x,y].color == game.currentTurn)
+                        if (game.board.pieces[x,y] != null && game.board.pieces[x,y].color == humanPlayer)
                         {
                             // No Selected Piece
                             if (!boardUI.squareIsSelected)

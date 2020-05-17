@@ -28,7 +28,7 @@ namespace Chess.ClientStates
 
             // One Player
             Button onePlayer = CreateMenuButton(menuFont, "ONE PLAYER", 0);
-            onePlayer.Disable();
+            onePlayer.SetCommand(new GoToStateCommand(new OnePlayerGameClientState()));
 
             // Two Player
             Button twoPlayer = CreateMenuButton(menuFont, "TWO PLAYER", 1);

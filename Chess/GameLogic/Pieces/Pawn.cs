@@ -8,8 +8,6 @@ namespace Chess.GameLogic.Pieces
 
         public override void FindPotentialMoves(Board board)
         {
-            ClearValidMoves();
-            
             int newX = this.position.x;
             int newY;
 
@@ -69,12 +67,12 @@ namespace Chess.GameLogic.Pieces
             // White
             if (this.color == ChessColor.White)
             {
-                return (newPosition.y - this.position.y > 0 && Math.Abs(newPosition.x - this.position.x) == 1);
+                return (newPosition.y - this.position.y == 1 && Math.Abs(newPosition.x - this.position.x) == 1);
             }
             // Black
             else
             {
-                return (newPosition.y - this.position.y < 0 && Math.Abs(newPosition.x - this.position.x) == 1);
+                return (this.position.y - newPosition.y == 1 && Math.Abs(newPosition.x - this.position.x) == 1);
             }
         }
     }
