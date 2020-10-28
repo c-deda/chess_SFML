@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chess.GameLogic.Pieces
+namespace Chess.GameLogic
 {
     class Queen : Piece
     {
@@ -10,8 +10,8 @@ namespace Chess.GameLogic.Pieces
         {
             // - - - Bishop Moveset - - - //
 
-            int newX = this.position.x;
-            int newY = this.position.y;
+            int newX = this.Position.X;
+            int newY = this.Position.Y;
 
             // Down And Left
             while (newX > 0 && newY > 0)
@@ -26,8 +26,8 @@ namespace Chess.GameLogic.Pieces
                 }
             }
 
-            newX = this.position.x;
-            newY = this.position.y;
+            newX = this.Position.X;
+            newY = this.Position.Y;
 
             // Down And Right
             while (newX < GlobalConstants.BoardLength - 1 && newY > 0)
@@ -42,8 +42,8 @@ namespace Chess.GameLogic.Pieces
                 }
             }
 
-            newX = this.position.x;
-            newY = this.position.y;
+            newX = this.Position.X;
+            newY = this.Position.Y;
 
             // Up And Left
             while (newX > 0 && newY < GlobalConstants.BoardLength - 1)
@@ -58,8 +58,8 @@ namespace Chess.GameLogic.Pieces
                 }
             }
 
-            newX = this.position.x;
-            newY = this.position.y;
+            newX = this.Position.X;
+            newY = this.Position.Y;
 
             // Up And Right
             while (newX < GlobalConstants.BoardLength - 1 && newY < GlobalConstants.BoardLength - 1)
@@ -76,8 +76,8 @@ namespace Chess.GameLogic.Pieces
 
             // - - - Rook Moveset - - - //
 
-            newX = this.position.x;
-            newY = this.position.y;
+            newX = this.Position.X;
+            newY = this.Position.Y;
 
             // Down
             while (newY > 0)
@@ -91,7 +91,7 @@ namespace Chess.GameLogic.Pieces
                 }
             }
 
-            newY = this.position.y;
+            newY = this.Position.Y;
 
             // Up
             while (newY < GlobalConstants.BoardLength - 1)
@@ -105,8 +105,8 @@ namespace Chess.GameLogic.Pieces
                 }
             }
 
-            newX = this.position.x;
-            newY = this.position.y;
+            newX = this.Position.X;
+            newY = this.Position.Y;
 
             // Left
             while (newX > 0)
@@ -120,7 +120,7 @@ namespace Chess.GameLogic.Pieces
                 }
             }
 
-            newX = this.position.x;
+            newX = this.Position.X;
 
             // Right
             while (newX < GlobalConstants.BoardLength - 1)
@@ -136,89 +136,89 @@ namespace Chess.GameLogic.Pieces
         }
         public override bool CanAttack(Board board, Position newPosition)
         {
-            int x = this.position.x;
-            int y = this.position.y;
+            int x = this.Position.X;
+            int y = this.Position.Y;
 
             // - - - Bishop Moveset - - - //
 
-            if (Math.Abs(newPosition.y - this.position.y) == Math.Abs(newPosition.x - this.position.x))
+            if (Math.Abs(newPosition.Y - this.Position.Y) == Math.Abs(newPosition.X - this.Position.X))
             {
                 // Up and Right
-                if (newPosition.y > this.position.y && newPosition.x > this.position.x)
+                if (newPosition.Y > this.Position.Y && newPosition.X > this.Position.X)
                 {
                     while (true)
                     {
                         ++x;
                         ++y;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Up and Left
-                else if (newPosition.y > this.position.y && newPosition.x < this.position.x)
+                else if (newPosition.Y > this.Position.Y && newPosition.X < this.Position.X)
                 {
-                    x = this.position.x;
-                    y = this.position.y;
+                    x = this.Position.X;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         --x;
                         ++y;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Down and Left
-                else if (newPosition.y < this.position.y && newPosition.x < this.position.x)
+                else if (newPosition.Y < this.Position.Y && newPosition.X < this.Position.X)
                 {
-                    x = this.position.x;
-                    y = this.position.y;
+                    x = this.Position.X;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         --x;
                         --y;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Down and Right
-                else if (newPosition.y < this.position.y && newPosition.x > this.position.x)
+                else if (newPosition.Y < this.Position.Y && newPosition.X > this.Position.X)
                 {
-                    x = this.position.x;
-                    y = this.position.y;
+                    x = this.Position.X;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         ++x;
                         --y;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
@@ -226,63 +226,63 @@ namespace Chess.GameLogic.Pieces
                 }
             }
             // - - - Rook Moveset - - - //
-            else if (newPosition.x == this.position.x || newPosition.y == this.position.y)
+            else if (newPosition.X == this.Position.X || newPosition.Y == this.Position.Y)
             {
-                x = this.position.x;
-                y = this.position.y;
+                x = this.Position.X;
+                y = this.Position.Y;
                 
                 // Up
-                if (newPosition.y > this.position.y)
+                if (newPosition.Y > this.Position.Y)
                 {
-                    y = this.position.y;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         ++y;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Down
-                else if (newPosition.y < this.position.y)
+                else if (newPosition.Y < this.Position.Y)
                 {
-                    y = this.position.y;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         --y;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Left
-                else if (newPosition.x < this.position.x)
+                else if (newPosition.X < this.Position.X)
                 {
-                    y = this.position.y;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         --x;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
@@ -291,17 +291,17 @@ namespace Chess.GameLogic.Pieces
                 // Right
                 else
                 {
-                    x = this.position.x;
+                    x = this.Position.X;
 
                     while (true)
                     {
                         ++x;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
@@ -310,6 +310,10 @@ namespace Chess.GameLogic.Pieces
             }
 
             return false;
+        }
+        public override string ToString()
+        {
+            return "Q";
         }
     }
 }

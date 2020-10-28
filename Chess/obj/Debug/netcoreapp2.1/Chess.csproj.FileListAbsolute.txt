@@ -9,3 +9,4 @@ C:\Users\Casey\vsc_projects\Chess\Chess\obj\Debug\netcoreapp2.1\Chess.dll
 C:\Users\Casey\vsc_projects\Chess\Chess\obj\Debug\netcoreapp2.1\Chess.pdb
 C:\Users\Casey\vsc_projects\Chess\Chess\bin\Debug\netcoreapp2.1\Chess.runtimeconfig.json
 C:\Users\Casey\vsc_projects\Chess\Chess\bin\Debug\netcoreapp2.1\Chess.runtimeconfig.dev.json
+C:\Users\Casey\vsc_projects\Chess\Chess\obj\Debug\netcoreapp2.1\Chess.genruntimeconfig.cache

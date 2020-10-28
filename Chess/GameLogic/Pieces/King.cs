@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chess.GameLogic.Pieces
+namespace Chess.GameLogic
 {
     class King : Piece
     {
@@ -9,58 +9,62 @@ namespace Chess.GameLogic.Pieces
         public override void FindPotentialMoves(Board board)
         {
             int newX;
-            int newY = this.position.y;
+            int newY = this.Position.Y;
 
             // Castling
-            if (!hasMoved)
+            if (!HasMoved)
             {
-                newX = this.position.x + 2;
+                newX = this.Position.X + 2;
                 AddIfEmpty(board, newX, newY);
 
-                newX = this.position.x - 2;
+                newX = this.Position.X - 2;
                 AddIfEmpty(board, newX, newY);
             }
 
             // Left
-            newX = this.position.x - 1;
+            newX = this.Position.X - 1;
             AddIfNotAlly(board, newX, newY);
 
             // Right
-            newX = this.position.x + 1;
+            newX = this.Position.X + 1;
             AddIfNotAlly(board, newX, newY);
 
             // Down
-            newX = this.position.x;
-            newY = this.position.y - 1;
+            newX = this.Position.X;
+            newY = this.Position.Y - 1;
             AddIfNotAlly(board, newX, newY);
 
             // Up
-            newY = this.position.y + 1;
+            newY = this.Position.Y + 1;
             AddIfNotAlly(board, newX, newY);
 
             // Down and Left
-            newX = this.position.x - 1;
-            newY = this.position.y - 1;
+            newX = this.Position.X - 1;
+            newY = this.Position.Y - 1;
             AddIfNotAlly(board, newX, newY);
 
             // Down and Right
-            newX = this.position.x + 1;
-            newY = this.position.y - 1;
+            newX = this.Position.X + 1;
+            newY = this.Position.Y - 1;
             AddIfNotAlly(board, newX, newY);
 
             // Up and Left
-            newX = this.position.x - 1;
-            newY = this.position.y + 1;
+            newX = this.Position.X - 1;
+            newY = this.Position.Y + 1;
             AddIfNotAlly(board, newX, newY);
 
             // Up and Right
-            newX = this.position.x + 1;
-            newY = this.position.y + 1;
+            newX = this.Position.X + 1;
+            newY = this.Position.Y + 1;
             AddIfNotAlly(board, newX, newY);
         }
         public override bool CanAttack(Board board, Position newPosition)
         {
-            return ((Math.Abs(newPosition.x - this.position.x) == 1 && Math.Abs(newPosition.y - this.position.y) == 1));
+            return ((Math.Abs(newPosition.X - this.Position.X) == 1 && Math.Abs(newPosition.Y - this.Position.Y) == 1));
+        }
+        public override string ToString()
+        {
+            return "K";
         }
     }
 }

@@ -1,14 +1,14 @@
-using Chess.ClientStates;
+using Chess.States;
 
 namespace Chess.Systems
 {
     class StateManager
     {
-        public ClientState activeState { get; private set; }
-        private ClientState newState { get; set; }
+        public State activeState { get; private set; }
+        private State newState { get; set; }
         private bool stateToChange;
 
-        public void GoToState(ClientState newState)
+        public void GoToState(State newState)
         {
             this.newState = newState;
             stateToChange = true;

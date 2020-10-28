@@ -1,4 +1,3 @@
-using Chess.GameLogic.Pieces;
 using Chess.GameLogic;
 using Chess.Systems;
 using SFML.Graphics;
@@ -7,18 +6,19 @@ namespace Chess.UI
 {
     class BoardUI
     {
-        public SquareUI[,] squaresUI { get; private set; }
-        private Sprite boardBackground;
-        public bool squareIsSelected { get; private set; }
-        public Position selection { get; private set; }
+        public SquareUI[,] SquareUI { get; private set; }
+        private Sprite _boardBackground;
+        private bool _mirrored;
+        public bool SquareIsSelected { get; private set; }
+        public Position Selection { get; private set; }
 
         public BoardUI(Board board)
         {
             // Board Texture
-            boardBackground = new Sprite(GameClient.Instance().assetManager.textures[TextureID.BoardBackground]);
+            _boardBackground = new Sprite(Application.Instance().AssetManager.Textures[TextureID.BoardBackground]);
 
             // Board Squares
-            squaresUI = new SquareUI[GlobalConstants.BoardLength,GlobalConstants.BoardLength];
+            SquareUI = new SquareUI[GlobalConstants.BoardLength,GlobalConstants.BoardLength];
 
             for (int y = 0; y < GlobalConstants.BoardLength; ++y)
             {
@@ -29,12 +29,12 @@ namespace Chess.UI
                         // Dark Squares
                         if (x % 2 == 0)
                         {
-                            squaresUI[x,y] = new SquareUI(new Position(x, y), board.pieces[x,y], true);
+                            SquareUI[x,y] = new SquareUI(new Position(x, y), board.GetPieceAt(x,y), true);
                         }
                         // Light Squares
                         else
                         {
-                            squaresUI[x,y] = new SquareUI(new Position(x, y), board.pieces[x,y], false);
+                            SquareUI[x,y] = new SquareUI(new Position(x, y), board.GetPieceAt(x,y), false);
                         }
                     }
                     else 
@@ -42,17 +42,18 @@ namespace Chess.UI
                         // Light Squares
                         if (x % 2 == 0)
                         {
-                            squaresUI[x,y] = new SquareUI(new Position(x, y), board.pieces[x,y], false);
+                            SquareUI[x,y] = new SquareUI(new Position(x, y), board.GetPieceAt(x,y), false);
                         }
                         // Dark Squares
                         else
                         {
-                            squaresUI[x,y] = new SquareUI(new Position(x, y), board.pieces[x,y], true);
+                            SquareUI[x,y] = new SquareUI(new Position(x, y), board.GetPieceAt(x,y), true);
                         }
                     }
                 }
             }
-
+            // Board Is Always Mirrored To Start
+            _mirrored = true;
             MirrorBoard();
         }
         public void MirrorBoard()
@@ -61,9 +62,18 @@ namespace Chess.UI
             {
                 for (int x = 0; x < GlobalConstants.BoardLength; ++x)
                 {
-                    squaresUI[x,y].MirrorSquare(new Position(x, (GlobalConstants.BoardLength - 1) - y));
+                    if (_mirrored)
+                    {
+                        SquareUI[x,y].MirrorSquare(new Position(x, (GlobalConstants.BoardLength - 1) - y));
+                    }
+                    else
+                    {
+                        SquareUI[x,y].MirrorSquare(new Position(x, y));
+                    }
                 }
             }
+
+            _mirrored = !_mirrored;
         }
         public void HighlightSquares(Board board)
         {
@@ -71,42 +81,42 @@ namespace Chess.UI
             {
                 for (int x = 0; x < GlobalConstants.BoardLength; ++x)
                 {
-                    if (!squareIsSelected)
+                    if (!SquareIsSelected)
                     {
-                        squaresUI[x,y].Unselect();
+                        SquareUI[x,y].Unselect();
                     }
-                    else if (selection.x == x && selection.y == y ||
-                             board.pieces[selection.x, selection.y].HasMove(new Position(x, y)))
+                    else if (Selection.X == x && Selection.Y == y ||
+                             board.GetPieceAt(Selection.X, Selection.Y).HasMove(new Position(x, y)))
                     {
-                        squaresUI[x,y].Select();
+                        SquareUI[x,y].Select();
                     }
                     else
                     {
-                        squaresUI[x,y].Unselect();
+                        SquareUI[x,y].Unselect();
                     }
                 }
             }
         }
         public void SelectSquare(Position position)
         {
-            squareIsSelected = true;
-            selection = position;
+            SquareIsSelected = true;
+            Selection = position;
         }
         public void UnselectSquare()
         {
-            squareIsSelected = false;
+            SquareIsSelected = false;
         }
         public void Draw()
         {
             // Background
-            GameClient.Instance().mainWindow.Draw(boardBackground);
+            Application.Instance().MainWindow.Draw(_boardBackground);
 
             // Squares
             for (int y = 0; y < GlobalConstants.BoardLength; ++y)
             {
                 for (int x = 0; x < GlobalConstants.BoardLength; ++x)
                 {
-                    squaresUI[x,y].Draw();
+                    SquareUI[x,y].Draw();
                 }
             }
         }
@@ -116,7 +126,7 @@ namespace Chess.UI
             {
                 for (int x = 0; x < GlobalConstants.BoardLength; ++x)
                 {
-                    squaresUI[x,y].UpdateSprite(board.pieces[x,y]);
+                    SquareUI[x,y].UpdateSprite(board.GetPieceAt(x,y));
                 }
             }
         }

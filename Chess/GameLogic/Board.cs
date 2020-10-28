@@ -1,111 +1,179 @@
-﻿using Chess.GameLogic.Pieces;
+﻿using System.Collections.Generic;
 
 namespace Chess.GameLogic
 {
     class Board
     {
-        public Piece[,] pieces { get; private set; }
+        public List<Piece> WhitePieces { get; private set; }
+        public List<Piece> BlackPieces { get; private set; }
 
         public Board()
         {
             // Initialize
-            pieces = new Piece[GlobalConstants.BoardLength, GlobalConstants.BoardLength];
+            WhitePieces = new List<Piece>();
+            BlackPieces = new List<Piece>();
             
             // White Pieces
-            pieces[0,0] = PieceFactory.CreatePiece(new Position(0, 0), ChessColor.White, PieceType.Rook);
-            pieces[1,0] = PieceFactory.CreatePiece(new Position(1, 0), ChessColor.White, PieceType.Knight);
-            pieces[2,0] = PieceFactory.CreatePiece(new Position(2, 0), ChessColor.White, PieceType.Bishop);
-            pieces[3,0] = PieceFactory.CreatePiece(new Position(3, 0), ChessColor.White, PieceType.Queen);
-            pieces[4,0] = PieceFactory.CreatePiece(new Position(4, 0), ChessColor.White, PieceType.King);
-            pieces[5,0] = PieceFactory.CreatePiece(new Position(5, 0), ChessColor.White, PieceType.Bishop);
-            pieces[6,0] = PieceFactory.CreatePiece(new Position(6, 0), ChessColor.White, PieceType.Knight);
-            pieces[7,0] = PieceFactory.CreatePiece(new Position(7, 0), ChessColor.White, PieceType.Rook);
-            pieces[0,1] = PieceFactory.CreatePiece(new Position(0, 1), ChessColor.White, PieceType.Pawn);
-            pieces[1,1] = PieceFactory.CreatePiece(new Position(1, 1), ChessColor.White, PieceType.Pawn);
-            pieces[2,1] = PieceFactory.CreatePiece(new Position(2, 1), ChessColor.White, PieceType.Pawn);
-            pieces[3,1] = PieceFactory.CreatePiece(new Position(3, 1), ChessColor.White, PieceType.Pawn);
-            pieces[4,1] = PieceFactory.CreatePiece(new Position(4, 1), ChessColor.White, PieceType.Pawn);
-            pieces[5,1] = PieceFactory.CreatePiece(new Position(5, 1), ChessColor.White, PieceType.Pawn);
-            pieces[6,1] = PieceFactory.CreatePiece(new Position(6, 1), ChessColor.White, PieceType.Pawn);
-            pieces[7,1] = PieceFactory.CreatePiece(new Position(7, 1), ChessColor.White, PieceType.Pawn);
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(0, 0), ChessColor.White, PieceType.Rook));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(1, 0), ChessColor.White, PieceType.Knight));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(2, 0), ChessColor.White, PieceType.Bishop));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(3, 0), ChessColor.White, PieceType.Queen));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(4, 0), ChessColor.White, PieceType.King));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(5, 0), ChessColor.White, PieceType.Bishop));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(6, 0), ChessColor.White, PieceType.Knight));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(7, 0), ChessColor.White, PieceType.Rook));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(0, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(1, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(2, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(3, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(4, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(5, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(6, 1), ChessColor.White, PieceType.Pawn));
+            WhitePieces.Add(PieceFactory.CreatePiece(new Position(7, 1), ChessColor.White, PieceType.Pawn));
 
             // Black Pieces
-            pieces[0,7] = PieceFactory.CreatePiece(new Position(0, 7), ChessColor.Black, PieceType.Rook);
-            pieces[1,7] = PieceFactory.CreatePiece(new Position(1, 7), ChessColor.Black, PieceType.Knight);
-            pieces[2,7] = PieceFactory.CreatePiece(new Position(2, 7), ChessColor.Black, PieceType.Bishop);
-            pieces[3,7] = PieceFactory.CreatePiece(new Position(3, 7), ChessColor.Black, PieceType.Queen);
-            pieces[4,7] = PieceFactory.CreatePiece(new Position(4, 7), ChessColor.Black, PieceType.King);
-            pieces[5,7] = PieceFactory.CreatePiece(new Position(5, 7), ChessColor.Black, PieceType.Bishop);
-            pieces[6,7] = PieceFactory.CreatePiece(new Position(6, 7), ChessColor.Black, PieceType.Knight);
-            pieces[7,7] = PieceFactory.CreatePiece(new Position(7, 7), ChessColor.Black, PieceType.Rook);
-            pieces[0,6] = PieceFactory.CreatePiece(new Position(0, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[1,6] = PieceFactory.CreatePiece(new Position(1, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[2,6] = PieceFactory.CreatePiece(new Position(2, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[3,6] = PieceFactory.CreatePiece(new Position(3, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[4,6] = PieceFactory.CreatePiece(new Position(4, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[5,6] = PieceFactory.CreatePiece(new Position(5, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[6,6] = PieceFactory.CreatePiece(new Position(6, 6), ChessColor.Black, PieceType.Pawn);
-            pieces[7,6] = PieceFactory.CreatePiece(new Position(7, 6), ChessColor.Black, PieceType.Pawn);
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(0, 7), ChessColor.Black, PieceType.Rook));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(1, 7), ChessColor.Black, PieceType.Knight));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(2, 7), ChessColor.Black, PieceType.Bishop));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(3, 7), ChessColor.Black, PieceType.Queen));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(4, 7), ChessColor.Black, PieceType.King));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(5, 7), ChessColor.Black, PieceType.Bishop));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(6, 7), ChessColor.Black, PieceType.Knight));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(7, 7), ChessColor.Black, PieceType.Rook));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(0, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(1, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(2, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(3, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(4, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(5, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(6, 6), ChessColor.Black, PieceType.Pawn));
+            BlackPieces.Add(PieceFactory.CreatePiece(new Position(7, 6), ChessColor.Black, PieceType.Pawn));
         }
         public King GetKing(ChessColor player)
         {
-            for (int y = 0; y < GlobalConstants.BoardLength; y++)
+            if (player == ChessColor.White)
             {
-                for (int x = 0; x < GlobalConstants.BoardLength; x++)
+                foreach (Piece piece in WhitePieces)
                 {
-                    if (pieces[x,y] != null && (pieces[x,y].type == PieceType.King && pieces[x,y].color == player))
+                    if (piece.Type == PieceType.King)
                     {
-                        return (King)pieces[x,y];
+                        return (King)piece;
+                    }
+                }
+            }
+            else
+            {
+                foreach (Piece piece in BlackPieces)
+                {
+                    if (piece.Type == PieceType.King)
+                    {
+                        return (King)piece;
                     }
                 }
             }
 
             return null;
         }
+        public Piece GetPieceAt(Position position)
+        {
+            foreach (Piece piece in WhitePieces)
+            {
+                if (piece.Position == position)
+                {
+                    return piece;
+                }
+            }
+            foreach (Piece piece in BlackPieces)
+            {
+                if (piece.Position == position)
+                {
+                    return piece;
+                }
+            }
+
+            return null;
+        }
+        public Piece GetPieceAt(int x, int y)
+        {
+            return GetPieceAt(new Position(x, y));
+        }
+        public void RemovePieceAt(Position position)
+        {
+            foreach (Piece piece in WhitePieces)
+            {
+                if (piece.Position == position)
+                {
+                    WhitePieces.Remove(piece);
+                    return;
+                }
+            }
+            foreach (Piece piece in BlackPieces)
+            {
+                if (piece.Position == position)
+                {
+                    BlackPieces.Remove(piece);
+                    return;
+                }
+            }
+        }
+        public List<Piece> GetPieceList(ChessColor player)
+        {
+            if (player == ChessColor.White)
+            {
+                return WhitePieces;
+            }
+            else
+            {
+                return BlackPieces;
+            }
+        }
+        public void AddPieceToBoard(Piece piece)
+        {
+            if (piece.Color == ChessColor.White)
+            {
+                WhitePieces.Add(piece);
+            }
+            else
+            {
+                BlackPieces.Add(piece);
+            }
+        }
         public void NormalMove(Position origin, Position destination)
         {
-            pieces[origin.x, origin.y].Move(destination);
-            pieces[destination.x, destination.y] = pieces[origin.x, origin.y];
-            pieces[origin.x, origin.y] = null;
+            GetPieceAt(origin).UpdatePosition(destination);
+        }
+        public void CaptureMove(Position origin, Position destination)
+        {
+            RemovePieceAt(destination);
+            GetPieceAt(origin).UpdatePosition(destination);
         }
         public void EnPassantMove(Position origin, Position destination, Piece captured)
         {
-            pieces[origin.x, origin.y].Move(destination);
-            pieces[destination.x, destination.y] = pieces[origin.x,origin.y];
-            pieces[origin.x, origin.y] = null;
-            pieces[captured.position.x, captured.position.y] = null;
+            GetPieceAt(origin).UpdatePosition(destination);
+            RemovePieceAt(captured.Position);
         }
         public void CastleMove(Position kingOrigin, Position kingDestination, Position rookOrigin, Position rookDestination)
         {
-            pieces[kingOrigin.x, kingOrigin.y].Move(kingDestination);
-            pieces[rookOrigin.x, rookOrigin.y].Move(rookDestination);
-            pieces[kingDestination.x, kingDestination.y] = pieces[kingOrigin.x, kingOrigin.y];
-            pieces[rookDestination.x, rookDestination.y] = pieces[rookOrigin.x, rookOrigin.y];
-            pieces[kingOrigin.x, kingOrigin.y] = null;
-            pieces[rookOrigin.x, rookOrigin.y] = null;
+            GetPieceAt(kingOrigin).UpdatePosition(kingDestination);
+            GetPieceAt(rookOrigin).UpdatePosition(rookDestination);
         }
-        public void NormalUndo(Piece moved, Position destination)
+        public void NormalUndo(Piece moved, Position origin, Position destination)
         {
-            pieces[moved.position.x, moved.position.y] = PieceFactory.CopyPiece(moved);
-            pieces[destination.x, destination.y] = null;
+            RemovePieceAt(destination);
+            AddPieceToBoard(PieceFactory.CopyPiece(moved));
         }
-        public void CaptureUndo(Piece moved, Piece captured)
+        public void CaptureUndo(Piece moved, Piece captured, Position destination)
         {
-            pieces[moved.position.x, moved.position.y] = PieceFactory.CopyPiece(moved);
-            pieces[captured.position.x, captured.position.y] = PieceFactory.CopyPiece(captured);
-        }
-        public void EnPassantUndo(Piece moved, Piece captured, Position destination)
-        {
-            pieces[moved.position.x, moved.position.y] = PieceFactory.CopyPiece(moved);
-            pieces[destination.x, destination.y] = null;
-            pieces[captured.position.x, captured.position.y] = PieceFactory.CopyPiece(captured);
+            RemovePieceAt(destination);
+            AddPieceToBoard(PieceFactory.CopyPiece(moved));
+            AddPieceToBoard(PieceFactory.CopyPiece(captured));
         }
         public void CastleUndo(Piece king, Piece rook, Position kingDestination, Position rookDestination)
         {
-            pieces[king.position.x, king.position.y] = PieceFactory.CopyPiece(king);
-            pieces[rook.position.x, rook.position.y] = PieceFactory.CopyPiece(rook);
-            pieces[kingDestination.x, kingDestination.y] = null;
-            pieces[rookDestination.x, rookDestination.y] = null;
+            RemovePieceAt(kingDestination);
+            RemovePieceAt(rookDestination);
+            AddPieceToBoard(PieceFactory.CopyPiece(king));
+            AddPieceToBoard(PieceFactory.CopyPiece(rook));
         }
     }
 }

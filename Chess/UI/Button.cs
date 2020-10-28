@@ -3,96 +3,79 @@ using SFML.System;
 
 namespace Chess.UI
 {
-    class Button
+    abstract class Button : UIElement
     {
         private static Command nullCommand = new NullCommand();
-        private Command command;
-        private Text text;
-        private RectangleShape shape;
-        private Color idleColor;
-        private Color hoverColor;
-        private bool isEnabled;
+        protected Command _command;
+        protected RectangleShape _shape;
+        protected Color _idleColor;
+        protected Color _hoverColor;
+        protected bool _isEnabled;
 
         // Buttons with text
-        public Button(Font font, string text, uint characterSize, Color textColor, Color idleColor, Color hoverColor, Vector2f position, Vector2f size)
+        public Button(Vector2f position, Vector2f size, Color idleColor, Color hoverColor)
         {
-            InitColors(idleColor, hoverColor);
+            this._idleColor = idleColor;
+            this._hoverColor = hoverColor;
+            _command = nullCommand;
+            _isEnabled = true;
+
             InitShape(position, size);
-            InitText(font, text, characterSize, textColor);
-            command = nullCommand;
-            isEnabled = true;
-        }
-        private void InitColors(Color idleColor, Color hoverColor)
-        {
-            this.idleColor = idleColor;
-            this.hoverColor = hoverColor;
         }
         private void InitShape(Vector2f position, Vector2f size)
         {
-            this.shape = new RectangleShape(size);
-            this.shape.Position = position;
-            this.shape.FillColor = idleColor;
+            this._shape = new RectangleShape(size);
+            this._shape.Position = position;
+            this._shape.FillColor = _idleColor;
         }
-        private void InitText(Font font, string text, uint characterSize, Color textColor)
+        public void SetBorder(uint outlineThickness, Color outlineColor)
         {
-            this.text = new Text(text, font, characterSize);
-            this.text.Origin = new Vector2f(this.text.GetGlobalBounds().Left, this.text.GetGlobalBounds().Top);
-            this.text.FillColor = Color.Black;
-
-            this.text.Position = new Vector2f(
-                this.shape.Position.X + (this.shape.Size.X / 2.0f) - (this.text.GetGlobalBounds().Width / 2.0f),
-                this.shape.Position.Y + (this.shape.Size.Y / 2.0f) - (this.text.GetGlobalBounds().Height / 2.0f)
-            );
+            _shape.Size = new Vector2f(_shape.Size.X - (outlineThickness * 2), _shape.Size.Y - (outlineThickness * 2));
+            _shape.Position = new Vector2f(_shape.Position.X + outlineThickness, _shape.Position.Y + outlineThickness);
+            _shape.OutlineThickness = outlineThickness;
+            _shape.OutlineColor = outlineColor;
         }
-        public void SetOutLine(uint outlineThickness, Color outlineColor)
+        public override void OnHover(float x, float y)
         {
-            this.shape.OutlineThickness = outlineThickness;
-            this.shape.OutlineColor = outlineColor;
-        }
-        public void Hover()
-        {
-            if (isEnabled)
+            if (_isEnabled)
             {
-                shape.FillColor = hoverColor;
+                _shape.FillColor = _hoverColor;
             }
         }
-        public void Idle()
+        public override void OnIdle(float x, float y)
         {
-            shape.FillColor = idleColor;
+            _shape.FillColor = _idleColor;
         }
-        public void Click()
+        public override void OnClick(float x, float y)
         {
-            if (isEnabled)
+            if (_isEnabled)
             {
-                command.Execute();
+                _command.Execute();
             }
         }
-        public void Draw()
+        public override void Draw()
         {
-            GameClient.Instance().mainWindow.Draw(shape);
-            GameClient.Instance().mainWindow.Draw(text);
+            Application.Instance().MainWindow.Draw(_shape);
         }
-        public bool Contains(float x, float y)
+        public override bool Contains(float x, float y)
         {
-            return shape.GetGlobalBounds().Contains(x, y);
+            return _shape.GetGlobalBounds().Contains(x, y);
         }
-        public void Enable()
+        public virtual void Enable()
         {
-            isEnabled = true;
-            idleColor = new Color(idleColor.R, idleColor.B, idleColor.G, 255);
-            shape.FillColor = idleColor;
-            text.FillColor = new Color(text.FillColor.R, text.FillColor.B, text.FillColor.B, 255);
+            _isEnabled = true;
+            _idleColor = new Color(_idleColor.R, _idleColor.B, _idleColor.G, 255);
+            _shape.FillColor = _idleColor;
         }
-        public void Disable()
+        public virtual void Disable()
         {
-            isEnabled = false;
-            idleColor = new Color(idleColor.R, idleColor.B, idleColor.G, 100);
-            shape.FillColor = idleColor;
-            text.FillColor = new Color(text.FillColor.R, text.FillColor.B, text.FillColor.B, 100);
+            _isEnabled = false;
+            _idleColor = new Color(_idleColor.R, _idleColor.B, _idleColor.G, 100);
+            _shape.FillColor = _idleColor;
         }
         public void SetCommand(Command command)
         {
-            this.command = command;
+            this._command = command;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Chess.UI
     {
         public override void Execute()
         {
-            GameClient.Instance().mainWindow.Close();
+            Application.Instance().MainWindow.Close();
         }
     }
 }

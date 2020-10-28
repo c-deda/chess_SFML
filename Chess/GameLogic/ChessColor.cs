@@ -4,5 +4,6 @@ namespace Chess.GameLogic
     {
         White,
         Black,
+        None
     }
 }

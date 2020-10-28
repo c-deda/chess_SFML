@@ -1,38 +1,38 @@
 using System.Collections.Generic;
 
-namespace Chess.GameLogic.Pieces
+namespace Chess.GameLogic
 {
     abstract class Piece
     {
-        public Position position { get; set; }
-        public ChessColor color { get; private set; }
-        public PieceType type { get; private set; }
-        public bool hasMoved { get; set; }
-        public List<Move> validMoves;
+        public Position Position { get; set; }
+        public ChessColor Color { get; private set; }
+        public PieceType Type { get; private set; }
+        public bool HasMoved { get; set; }
+        public List<Move> ValidMoves { get; set; }
 
         public Piece(Position position, ChessColor color, PieceType type)
         {
-            this.position = position;
-            this.color = color;
-            this.type = type;
-            validMoves = new List<Move>();
+            this.Position = position;
+            this.Color = color;
+            this.Type = type;
+            ValidMoves = new List<Move>();
         }
-        public void Move(Position destination)
+        public void UpdatePosition(Position destination)
         {
-            if (!hasMoved)
+            if (!HasMoved)
             {
-                hasMoved = true;
+                HasMoved = true;
             }
             
-            this.position = destination;
+            this.Position = destination;
         }
         public bool AddIfEmpty(Board board, int newX, int newY)
         {
             if (newX >= 0 && newX < GlobalConstants.BoardLength && newY >= 0 && newY < GlobalConstants.BoardLength)
             {
-                if (board.pieces[newX,newY] == null)
+                if (board.GetPieceAt(newX,newY) == null)
                 {
-                    this.validMoves.Add(new Move(this, this.position, new Position(newX, newY)));
+                    this.ValidMoves.Add(new Move(this, this.Position, new Position(newX, newY)));
                     return true;
                 }
             }
@@ -43,17 +43,17 @@ namespace Chess.GameLogic.Pieces
         {
             if (newX >= 0 && newX < GlobalConstants.BoardLength && newY >= 0 && newY < GlobalConstants.BoardLength)
             {
-                if (board.pieces[newX,newY] != null)
+                if (board.GetPieceAt(newX,newY) != null)
                 {
-                    if (board.pieces[newX,newY].color != this.color)
+                    if (board.GetPieceAt(newX,newY).Color != this.Color)
                     {
-                        this.validMoves.Add(new CaptureMove(this, this.position, new Position(newX, newY), board.pieces[newX, newY]));
+                        this.ValidMoves.Add(new CaptureMove(this, this.Position, new Position(newX, newY), board.GetPieceAt(newX,newY)));
                         return true;
                     }
                 }
                 else
                 {
-                    this.validMoves.Add(new Move(this, this.position, new Position(newX, newY)));
+                    this.ValidMoves.Add(new Move(this, this.Position, new Position(newX, newY)));
                     return true;
                 }
             }
@@ -62,13 +62,13 @@ namespace Chess.GameLogic.Pieces
         }
         public void ClearValidMoves()
         {
-            this.validMoves.Clear();
+            this.ValidMoves.Clear();
         }
         public bool HasMove(Position destination)
         {
-            foreach (Move move in validMoves)
+            foreach (Move move in ValidMoves)
             {
-                if (move.destination == destination)
+                if (move.Destination == destination)
                 {
                     return true;
                 }
@@ -78,9 +78,9 @@ namespace Chess.GameLogic.Pieces
         }
         public Move GetMove(Position destination)
         {
-            foreach (Move move in validMoves)
+            foreach (Move move in ValidMoves)
             {
-                if (move.destination == destination)
+                if (move.Destination == destination)
                 {
                     return move;
                 }

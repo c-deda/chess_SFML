@@ -1,6 +1,6 @@
 using System;
 
-namespace Chess.GameLogic.Pieces
+namespace Chess.GameLogic
 {
     static class PieceFactory
     {
@@ -28,32 +28,32 @@ namespace Chess.GameLogic.Pieces
         {
             Piece copy;
 
-            switch (toCopy.type)
+            switch (toCopy.Type)
             {
                 case PieceType.King:
-                    copy = new King(toCopy.position, toCopy.color, toCopy.type);
+                    copy = new King(toCopy.Position, toCopy.Color, toCopy.Type);
                     break;
                 case PieceType.Queen:
-                    copy = new Queen(toCopy.position, toCopy.color, toCopy.type);
+                    copy = new Queen(toCopy.Position, toCopy.Color, toCopy.Type);
                     break;
                 case PieceType.Rook:
-                    copy = new Rook(toCopy.position, toCopy.color, toCopy.type);
+                    copy = new Rook(toCopy.Position, toCopy.Color, toCopy.Type);
                     break;
                 case PieceType.Knight:
-                    copy = new Knight(toCopy.position, toCopy.color, toCopy.type);
+                    copy = new Knight(toCopy.Position, toCopy.Color, toCopy.Type);
                     break;
                 case PieceType.Bishop:
-                    copy = new Bishop(toCopy.position, toCopy.color, toCopy.type);
+                    copy = new Bishop(toCopy.Position, toCopy.Color, toCopy.Type);
                     break;
                 case PieceType.Pawn:
-                    copy = new Pawn(toCopy.position, toCopy.color, toCopy.type);
+                    copy = new Pawn(toCopy.Position, toCopy.Color, toCopy.Type);
                     break;
                 default:
                     throw new ArgumentException("Invalid Piece Argument");
             }
 
-            copy.hasMoved = toCopy.hasMoved;
-            copy.validMoves = toCopy.validMoves;
+            copy.HasMoved = toCopy.HasMoved;
+            copy.ValidMoves = toCopy.ValidMoves;
 
             return copy;
         }

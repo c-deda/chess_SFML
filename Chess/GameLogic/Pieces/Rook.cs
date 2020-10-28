@@ -1,4 +1,4 @@
-﻿namespace Chess.GameLogic.Pieces
+﻿namespace Chess.GameLogic
 {
     class Rook : Piece
     {
@@ -6,8 +6,8 @@
 
         public override void FindPotentialMoves(Board board)
         {
-            int newX = this.position.x;
-            int newY = this.position.y;
+            int newX = this.Position.X;
+            int newY = this.Position.Y;
 
             // Down
             while (newY > 0)
@@ -21,7 +21,7 @@
                 }
             }
 
-            newY = this.position.y;
+            newY = this.Position.Y;
 
             // Up
             while (newY < GlobalConstants.BoardLength - 1)
@@ -35,8 +35,8 @@
                 }
             }
 
-            newX = this.position.x;
-            newY = this.position.y;
+            newX = this.Position.X;
+            newY = this.Position.Y;
 
             // Left
             while (newX > 0)
@@ -50,7 +50,7 @@
                 }
             }
 
-            newX = this.position.x;
+            newX = this.Position.X;
 
             // Right
             while (newX < GlobalConstants.BoardLength - 1)
@@ -66,63 +66,63 @@
         }
         public override bool CanAttack(Board board, Position newPosition)
         {
-            if (newPosition.x == this.position.x || newPosition.y == this.position.y)
+            if (newPosition.X == this.Position.X || newPosition.Y == this.Position.Y)
             {
-                int x = this.position.x;
-                int y = this.position.y;
+                int x = this.Position.X;
+                int y = this.Position.Y;
 
                 // Up
-                if (newPosition.y > this.position.y)
+                if (newPosition.Y > this.Position.Y)
                 {
-                    y = this.position.y;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         y++;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Down
-                else if (newPosition.y < this.position.y)
+                else if (newPosition.Y < this.Position.Y)
                 {
-                    y = this.position.y;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         y--;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
                     }
                 }
                 // Left
-                else if (newPosition.x < this.position.x)
+                else if (newPosition.X < this.Position.X)
                 {
-                    y = this.position.y;
+                    y = this.Position.Y;
 
                     while (true)
                     {
                         x--;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
@@ -131,17 +131,17 @@
                 // Right
                 else
                 {
-                    x = this.position.x;
+                    x = this.Position.X;
 
                     while (true)
                     {
                         x++;
 
-                        if (x == newPosition.x && y == newPosition.y)
+                        if (x == newPosition.X && y == newPosition.Y)
                         {
                             return true;
                         }
-                        else if (board.pieces[x,y] != null)
+                        else if (board.GetPieceAt(x,y) != null)
                         {
                             return false;
                         }
@@ -150,6 +150,10 @@
             }
 
             return false;
+        }
+        public override string ToString()
+        {
+            return "R";
         }
     }
 }

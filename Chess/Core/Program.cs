@@ -4,8 +4,8 @@
     {
         public static void Main(string[] args)
         {
-            GameClient.Init();
-            GameClient.Instance().Run();
+            Application.Init();
+            Application.Instance().Run();
         }
     }
 }

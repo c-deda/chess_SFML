@@ -4,21 +4,21 @@ namespace Chess.GameLogic
 {
     public struct Position
     {
-        public int x { get; set; }
-        public int y { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public Position(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
         public static bool operator ==(Position a, Position b)
         {
-            return (a.x == b.x) && (a.y == b.y);
+            return (a.X == b.X) && (a.Y == b.Y);
         }
         public static bool operator !=(Position a, Position b)
         {
-            return (a.x != b.x) || (a.y != b.y);
+            return (a.X != b.X) || (a.Y != b.Y);
         }
         public override bool Equals(object obj)
         {
@@ -29,12 +29,12 @@ namespace Chess.GameLogic
             else
             {
                 Position p = (Position)obj;
-                return (this.x == p.x) && (this.y == p.y);
+                return (this.X == p.X) && (this.Y == p.Y);
             }
         }
         public override int GetHashCode()
         {
-            return ShiftAndWrap(x.GetHashCode(), 2) ^ y.GetHashCode();
+            return ShiftAndWrap(X.GetHashCode(), 2) ^ Y.GetHashCode();
         }
         private int ShiftAndWrap(int value, int positions)
         {

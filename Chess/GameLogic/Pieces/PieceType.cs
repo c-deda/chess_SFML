@@ -1,4 +1,4 @@
-namespace Chess.GameLogic.Pieces
+namespace Chess.GameLogic
 {
     public enum PieceType
     {
